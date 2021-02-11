@@ -1,24 +1,24 @@
 pipelines:
   default:
     - step:
-      name: Test
-      script:
-      - pip install -r requirements.txt
-      - ./manage.py test
+        name: Test
+        script:
+        - pip install -r requirements.txt
+        - ./manage.py test
     - step:
-      name: Build
-      script:
-        - git archive --format=tar.gz master -o cloud-reader.tar.gz
-      artifacts:
-        - cloud-reader.tar.gz
+        name: Build
+        script:
+          - git archive --format=tar.gz master -o cloud-reader.tar.gz
+        artifacts:
+          - cloud-reader.tar.gz
     - step:
-      name: Deploy to production
-      deployment: production
-      caches:
-        - pip
-      script:
-        - pipe: atlassian/heroku-deploy:0.1.1
-          variables:
-            HEROKU_API_KEY: $HEROKU_API_KEY
-            HEROKU_APP_NAME: $HEROKU_APP_NAME
-            ZIP_FILE: cloud-reader.tar.gz
+        name: Deploy to production
+        deployment: production
+        caches:
+          - pip
+        script:
+          - pipe: atlassian/heroku-deploy:1.2.1
+            variables:
+              HEROKU_API_KEY: $HEROKU_API_KEY
+              HEROKU_APP_NAME: $HEROKU_APP_NAME
+              ZIP_FILE: cloud-reader.tar.gz
