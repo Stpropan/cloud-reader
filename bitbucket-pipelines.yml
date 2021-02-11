@@ -3,7 +3,7 @@ pipelines:
     - step:
         name: Install deps
         script:
-          - apt-get update && apt-get install python3-pip
+          - apt-get update -y && apt-get install python3-pip -y
     - step:
         name: Test
         script:
