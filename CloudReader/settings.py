@@ -12,21 +12,29 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import connection_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Наивный парсинг переменных среды из файла .env в надежде что он содержит только key=value
+with open(BASE_DIR/'.env', encoding="UTF-16", mode="r") as f:
+    for line in f.readlines():
+        env_var_parts = line.replace("'", '').strip("\n").split('=')
+        os.environ[env_var_parts[0]] = env_var_parts[1]
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['DJANGO_KEY']
+SECRET_KEY = os.getenv("DJANGO_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cloud-reader.herokuapp.com']
+ALLOWED_HOSTS = ['cloud-reader.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -74,13 +82,8 @@ WSGI_APPLICATION = 'CloudReader.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
+DATABASES = {}
+DATABASES['default'] = connection_url.config(os.environ['DATABASE_URL'])
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
