@@ -25,7 +25,7 @@ SECRET_KEY = 'eeaqpmc!h&izh#wd99b@6x$l)e4!**rb!0p^j13we+bl66wnvm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cloud-reader.herokuapp.com']
 
 
 # Application definition
