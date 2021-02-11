@@ -19,10 +19,11 @@ import connection_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Наивный парсинг переменных среды из файла .env в надежде что он содержит только key=value
-with open(BASE_DIR/'.env', encoding="UTF-16", mode="r") as f:
-    for line in f.readlines():
-        env_var_parts = line.replace("'", '').strip("\n").split('=')
-        os.environ[env_var_parts[0]] = env_var_parts[1]
+if os.path.exists(BASE_DIR/'.env'):
+    with open(BASE_DIR/'.env', encoding="UTF-16", mode="r") as f:
+        for line in f.readlines():
+            env_var_parts = line.replace("'", '').strip("\n").split('=')
+            os.environ[env_var_parts[0]] = env_var_parts[1]
 
 
 # Quick-start development settings - unsuitable for production
