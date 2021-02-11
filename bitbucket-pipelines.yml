@@ -1,6 +1,10 @@
 pipelines:
   default:
     - step:
+        name: Install deps
+        script:
+          - apt-get update && apt-get install python3-pip
+    - step:
         name: Test
         script:
         - pip install -r ./requirements.txt
