@@ -23,6 +23,9 @@ if os.path.exists(BASE_DIR/'.env'):
     with open(BASE_DIR/'.env', encoding="UTF-16", mode="r") as f:
         for line in f.readlines():
             env_var_parts = line.replace("'", '').strip("\n").split('=')
+            if env_var_parts[0] == 'HEROKU_POSTGRESQL_TEAL_URL':
+                os.environ['DATABASE_URL'] = env_var_parts[1]
+                continue
             os.environ[env_var_parts[0]] = env_var_parts[1]
 
 

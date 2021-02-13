@@ -30,9 +30,10 @@
 4. Установаить зависимости:
     - ``` pip install -r requirements.txt ```
 5. Получить переменные среды с heroku:
-    - ``` heroku config:get DJANGO_KEY -s  >> .env -a cloud-reader ```
-    - ``` heroku config:get DATABASE_URL -s  >> .env -a cloud-reader ```
+    - Секретный ключ django: ``` heroku config:get DJANGO_KEY -s  >> .env -a cloud-reader ```
+    - Для базы данных есть несколько вариантов:
+        - Подключение к удалённой базе данных специально созданной для разработки: ``` heroku config:get HEROKU_POSTGRESQL_TEAL_URL -s  >> .env -a cloud-reader ```
+        - Запустить базу данных локально как-то можно и это даже рекомендует Heroku, но у меня не получилось сделать это по его рекомендациям. Но всегда можно настроить её самостоятельно.
 6. Запустить приложение локально:
     - Для Linux: ``` heroku local web ```
     - Для Windows: ``` local -f .\Procfile.windows ```
-7. Не проверено:
