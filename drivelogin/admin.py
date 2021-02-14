@@ -1,9 +1,13 @@
 from django.contrib import admin
-from .models import Users, Tokens, Books, Notes, Bookmarks
+from .models.default_models import Users, Tokens, Books, Notes, Bookmarks
+
+class CommonIdShow(admin.ModelAdmin):
+    readonly_fields=("id",)
+    
 
 # Register your models here.
-admin.site.register(Users)
-admin.site.register(Tokens)
-admin.site.register(Books)
-admin.site.register(Notes)
-admin.site.register(Bookmarks)
+admin.site.register(Users, CommonIdShow)
+admin.site.register(Tokens, CommonIdShow)
+admin.site.register(Books, CommonIdShow)
+admin.site.register(Notes, CommonIdShow)
+admin.site.register(Bookmarks, CommonIdShow)
