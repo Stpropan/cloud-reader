@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models.default_models import Users, Tokens, Books, Notes, Bookmarks
+from .models import Users, Tokens, Books, Notes, Bookmarks
 
 class CommonIdShow(admin.ModelAdmin):
     readonly_fields=("id",)
