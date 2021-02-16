@@ -18,16 +18,20 @@ class AuthorizeDefaultUser(View):
         except JSONDecodeError:
             error_msg = "Error! Be sure to pass data in JSON format!"
             print(error_msg)
-            return HttpResponse(error_msg)
+            response = HttpResponse(error_msg)
+            response.status_code = 400
+            return response
 
         try:
             username = post_items['username']
             email = post_items['email']
             password = post_items['password']
         except KeyError:
-            error_msg = "Error! Not all data passed! Check documentation"
+            error_msg = "Error! Not all data passed or passed with wrong names! Check API documentation for more information."
             print(error_msg)
-            return HttpResponse(error_msg)
+            response = HttpResponse(error_msg)
+            response.status_code = 400
+            return response
 
         user = User(username = username, email = email)
         user.set_password(raw_password = password)
